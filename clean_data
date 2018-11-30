@@ -1,0 +1,30 @@
+# qiqi
+#@date:2018/11/23
+# coding: utf-8
+#对Excel数据整理，筛选删除，转换为txt
+
+import numpy as np
+import xlrd                             #打开excel文件
+data = xlrd.open_workbook('D:/01_Data/month7.xlsx')   #打开Excel文件读取数据excel筛选出数字型 :将excel处理的数据存入Data7
+sh = data.sheet_by_name("Sheet1")       #通过工作簿名称获取(excel下面的表单)
+print(sh.nrows)                         #行数
+print(sh.ncols)                         #列数
+n=0
+i=0
+file=open("D:/77PY/RNN1123/data/month7.txt","w",encoding="utf-8") #//UnicodeEncodeError: ‘gbk’ codec can’t encode character ‘\xa0’ in position* encoding='utf-8'
+for n in range(sh.nrows):
+    text1 = sh.cell_value(n, 0)            #//读取指定列  我要读取第1列 .replace("\n",'')
+    text2 = sh.cell_value(n, 1) .replace("\n",'')        #//读取指定列  我要读取第2列  .replace("\n",'')
+
+    file.write(text1)
+    file.write("\t")
+    file.write(text2)#.encode("gbk", 'ignore').decode("gbk", "ignore").encode("utf-8", 'ignore').decode("utf-8", "ignore")
+    file.write("\t")
+    file.write('\n')
+
+#    for i in range(sh.ncols):           //遍历读取每一列
+#        text=sh.cell_value(n,i)
+#        file.write(text)
+#        file.write('\n')
+
+file.close()
